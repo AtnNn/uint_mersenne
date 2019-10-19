@@ -14,5 +14,5 @@ env:
 install:
   - nix-env -iA nixpkgs.$COMPILER
 script:
-  - c++ -version
+  - c++ --version
   - make test CXX="c++ -std=${STD}"
