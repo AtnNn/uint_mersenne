@@ -5,15 +5,15 @@ env:
     - TARGETS=test
     - TIDY=
 env:
-  #- COMPILER=clang_39 STD=c++11
-  #- COMPILER=clang_8 STD=c++11
-  #- COMPILER=clang_8 STD=c++14
-  #- COMPILER=clang_8 STD=c++17
-  - COMPILER=clang_8 STD=c++17 TIDY=tidy
-#  - COMPILER=gcc49 STD=c++11
-#  - COMPILER=gcc9 STD=c++11
-#  - COMPILER=gcc9 STD=c++14
-#  - COMPILER=gcc9 STD=c++17
+  - COMPILER=clang_39 STD=c++11
+  - COMPILER=clang_8 STD=c++17
+  - COMPILER=clang_9 STD=c++11
+  - COMPILER=clang_9 STD=c++17
+  - COMPILER=clang_9 STD=c++17 TIDY=tidy
+  - COMPILER=clang_9 STD=c++2a
+  - COMPILER=gcc49 STD=c++11
+  - COMPILER=gcc9 STD=c++11
+  - COMPILER=gcc9 STD=c++17
 install:
   - nix-env -iA nixpkgs.$COMPILER ${TIDY:+nixpkgs.clang-tools} nixpkgs.bash
 script:
