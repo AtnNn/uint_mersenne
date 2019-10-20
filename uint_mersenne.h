@@ -57,7 +57,10 @@ public:
 
   uint_mersenne(uint_mersenne const &other) : value(other.value) {}
 
-    uint_mersenne &operator=(uint_mersenne const &other) { value = other.value; return *this; }
+  uint_mersenne &operator=(uint_mersenne const &other) {
+    value = other.value;
+    return *this;
+  }
 
   signed_t to_signed() const { return always_positive(value); }
 
