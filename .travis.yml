@@ -15,7 +15,7 @@ env:
 #  - COMPILER=gcc9 STD=c++14
 #  - COMPILER=gcc9 STD=c++17
 install:
-  - nix-env -iA nixpkgs.$COMPILER ${TIDY:+nixpkgs.clang-tools}
+  - nix-env -iA nixpkgs.$COMPILER ${TIDY:+nixpkgs.clang-tools} nixpkgs.bash
 script:
   - c++ --version
   - make test CXX="c++ -std=${STD}" $TIDY

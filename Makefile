@@ -1,3 +1,5 @@
+SHELL := bash
+
 .PHONY: test
 test: build/test
 	./build/test
