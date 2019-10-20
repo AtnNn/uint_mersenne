@@ -1,4 +1,13 @@
-Checks:           '*,-*-magic-numbers,-*-special-member-functions,-fuchsia-overloaded-operator,-cert-dcl21-cpp,-llvm-header-guard'
+Checks: >
+  *,
+  -*-magic-numbers,
+  -*-special-member-functions,
+  -fuchsia-overloaded-operator,
+  -cert-dcl21-cpp,
+  -modernize-use-trailing-return-type,
+  -llvm-header-guard,
+  -abseil-*,
+  -android-*,
 WarningsAsErrors: '*'
-FormatStyle:     file
+FormatStyle: file
 HeaderFilterRegex: 'uint_mersenne.h'
