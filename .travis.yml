@@ -3,18 +3,19 @@ env:
   global:
     - NIX_PATH=nixpkgs=channel:nixos-19.09
     - TARGETS=test
+    - TIDY=
 env:
-  - COMPILER=clang_39 STD=c++11
-  - COMPILER=clang_8 STD=c++11
-  - COMPILER=clang_8 STD=c++14
-  - COMPILER=clang_8 STD=c++17
-  - COMPILER=clang_8 STD=c++17 TARGETS="test tidy"
-  - COMPILER=gcc49 STD=c++11
-  - COMPILER=gcc9 STD=c++11
-  - COMPILER=gcc9 STD=c++14
-  - COMPILER=gcc9 STD=c++17
+  #- COMPILER=clang_39 STD=c++11
+  #- COMPILER=clang_8 STD=c++11
+  #- COMPILER=clang_8 STD=c++14
+  #- COMPILER=clang_8 STD=c++17
+  - COMPILER=clang_8 STD=c++17 TIDY=tidy
+#  - COMPILER=gcc49 STD=c++11
+#  - COMPILER=gcc9 STD=c++11
+#  - COMPILER=gcc9 STD=c++14
+#  - COMPILER=gcc9 STD=c++17
 install:
-  - nix-env -iA nixpkgs.$COMPILER ${TARGETS#*tidy*#nixpkgs.clang-tools}
+  - nix-env -iA nixpkgs.$COMPILER ${TIDY:+nixpkgs.clang-tools}
 script:
   - c++ --version
-  - make test CXX="c++ -std=${STD}" $TARGETS
+  - make test CXX="c++ -std=${STD}" $TIDY
