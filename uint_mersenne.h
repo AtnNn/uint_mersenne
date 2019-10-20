@@ -50,7 +50,7 @@ public:
   explicit uint_mersenne(signed_t other) : value(always_positive(other)) {}
 
   template <class = std::enable_if<!std::is_same<int, signed_t>::value>>
-  explicit uint_mersenne(int other) : value(always_positive(other)) {}
+  explicit uint_mersenne(int other) : value(static_cast<signed_t>(always_positive(other))) {}
 
   explicit uint_mersenne(unsigned_t other)
       : value(static_cast<signed_t>(other)) {}
@@ -66,7 +66,7 @@ public:
 
   signed_t to_signed_extend() const {
     if (to_unsigned() & (static_cast<unsigned_promoted_t>(1) << (bits - 1))) {
-      return to_unsigned() | (~static_cast<unsigned_promoted_t>(0) << bits);
+	return static_cast<signed_t>(to_unsigned() | (~static_cast<unsigned_promoted_t>(0) << bits));
     }
     return value;
   }
