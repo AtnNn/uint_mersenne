@@ -74,9 +74,9 @@ public:
     return static_cast<unsigned_t>(always_positive(value));
   }
 
-  operator unsigned_t() const { return to_unsigned(); }
+  explicit operator unsigned_t() const { return to_unsigned(); }
 
-  explicit operator signed_t() const { return to_signed(); }
+  operator signed_t() const { return to_signed(); }
 
   static uint_mersenne max() {
     return uint_mersenne{(std::numeric_limits<signed_t>::max)()};

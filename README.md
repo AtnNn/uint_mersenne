@@ -2,6 +2,8 @@
 
 This library provides `uint7_t`, `uint15_t`, `uint31_t` and `uint63_t`.
 
+[![Build Status](https://travis-ci.com/AtnNn/uint_mersenne.svg?branch=master)](https://travis-ci.com/AtnNn/uint_mersenne)
+
 # Usage
 
 ```
