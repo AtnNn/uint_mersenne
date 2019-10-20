@@ -4,6 +4,7 @@ Checks: >
   -*-special-member-functions,
   -fuchsia-overloaded-operator,
   -cert-dcl21-cpp,
+  -cert-oop54-cpp,
   -modernize-use-trailing-return-type,
   -llvm-header-guard,
   -abseil-*,
