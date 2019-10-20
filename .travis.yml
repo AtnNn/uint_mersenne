@@ -2,11 +2,13 @@ language: nix
 env:
   global:
     - NIX_PATH=nixpkgs=channel:nixos-19.09
+    - TARGETS=test
 env:
   - COMPILER=clang_39 STD=c++11
   - COMPILER=clang_8 STD=c++11
   - COMPILER=clang_8 STD=c++14
   - COMPILER=clang_8 STD=c++17
+  - COMPILER=clang_8 STD=c++17 TARGETS="test tidy"
   - COMPILER=gcc49 STD=c++11
   - COMPILER=gcc9 STD=c++11
   - COMPILER=gcc9 STD=c++14
@@ -15,4 +17,4 @@ install:
   - nix-env -iA nixpkgs.$COMPILER
 script:
   - c++ --version
-  - make test CXX="c++ -std=${STD}"
+  - make test CXX="c++ -std=${STD}" $TARGETS

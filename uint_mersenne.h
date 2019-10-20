@@ -6,10 +6,12 @@
 
 #include <cstdint>
 #include <limits>
+#include <type_traits>
 
 namespace uint_mersenne {
 
 template <unsigned int bits> struct unsigned_int;
+template <> struct unsigned_int<0> {};
 template <> struct unsigned_int<8> { using type = uint8_t; };
 template <> struct unsigned_int<16> { using type = uint16_t; };
 template <> struct unsigned_int<32> { using type = uint32_t; };
@@ -42,32 +44,28 @@ template <unsigned int bits> class uint_mersenne {
 public:
   using signed_t = typename signed_int<bits + 1>::type;
   using unsigned_t = typename unsigned_int<bits + 1>::type;
+  using unsigned_promoted_t = typename std::make_unsigned<decltype(
+      std::declval<unsigned_t>() + bits)>::type;
 
   explicit uint_mersenne(signed_t other) : value(always_positive(other)) {}
 
   template <class = std::enable_if<!std::is_same<int, signed_t>::value>>
-  explicit uint_mersenne(int other)
-      : value(always_positive(static_cast<signed_t>(other))) {
-    assert(other <= max().value);
-  }
+  explicit uint_mersenne(int other) : value(always_positive(other)) {}
 
   explicit uint_mersenne(unsigned_t other)
-      : value(static_cast<signed_t>(other)) {
-    assert(other <= max().to_unsigned());
-  }
+      : value(static_cast<signed_t>(other)) {}
 
-  uint_mersenne(const uint_mersenne &other) : value(other.value) {}
+  uint_mersenne(uint_mersenne const &other) : value(other.value) {}
 
-  uint_mersenne &operator=(uint_mersenne other) { value = other.value; }
+  uint_mersenne &operator=(uint_mersenne const &other) { value = other.value; }
 
   signed_t to_signed() const { return always_positive(value); }
 
   signed_t to_signed_extend() const {
-    if (value & (static_cast<unsigned_t>(1) << (bits - 1))) {
-      return value | (~static_cast<unsigned_t>(0) << bits);
-    } else {
-      return value;
+    if (to_unsigned() & (static_cast<unsigned_promoted_t>(1) << (bits - 1))) {
+      return to_unsigned() | (~static_cast<unsigned_promoted_t>(0) << bits);
     }
+    return value;
   }
 
   unsigned_t to_unsigned() const {
@@ -76,7 +74,7 @@ public:
 
   explicit operator unsigned_t() const { return to_unsigned(); }
 
-  operator signed_t() const { return to_signed(); }
+  explicit operator signed_t() const { return to_signed(); }
 
   static uint_mersenne max() {
     return uint_mersenne{(std::numeric_limits<signed_t>::max)()};

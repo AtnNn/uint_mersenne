@@ -1,6 +1,6 @@
 
 #define CATCH_CONFIG_MAIN
-#include "test/catch.hpp"
+#include <catch.hpp>
 
 #define UINT_MERSENNE_ALWAYS_POSITIVE_CUSTOM
 #include "uint_mersenne.h"
@@ -15,15 +15,24 @@ template <class T> inline T always_positive(T x) {
 } // namespace uint_mersenne
 
 TEST_CASE("Construct") {
-  CHECK(uint7_t{0} == 0);
-  CHECK(uint16_t{0} == 0);
-  CHECK(uint31_t{0} == 0);
-  CHECK(uint63_t{0} == 0);
-  CHECK(uint7_t{0x7F} == 0x7F);
-  CHECK(uint16_t{0x7FFF} == 0x7FFF);
-  CHECK(uint31_t{0x7FFFFFFF} == 0x7FFFFFFF);
-  CHECK(uint63_t{0x7FFFFFFFFFFFFFFF} == 0x7FFFFFFFFFFFFFFF);
-  CHECK(uint7_t{uint7_t{1}} == 1);
+  CHECK(uint7_t{0}.to_unsigned() == 0);
+  CHECK(uint7_t{0}.to_signed() == 0);
+  CHECK(uint15_t{0}.to_unsigned() == 0);
+  CHECK(uint15_t{0}.to_signed() == 0);
+  CHECK(uint31_t{0}.to_unsigned() == 0);
+  CHECK(uint31_t{0}.to_signed() == 0);
+  CHECK(uint63_t{0}.to_unsigned() == 0);
+  CHECK(uint63_t{0}.to_signed() == 0);
+  CHECK(uint7_t{0x7F}.to_unsigned() == 0x7F);
+  CHECK(uint7_t{0x7F}.to_signed() == 0x7F);
+  CHECK(uint15_t{0x7FFF}.to_unsigned() == 0x7FFF);
+  CHECK(uint15_t{0x7FFF}.to_signed() == 0x7FFF);
+  CHECK(uint31_t{0x7FFFFFFF}.to_unsigned() == 0x7FFFFFFF);
+  CHECK(uint31_t{0x7FFFFFFF}.to_signed() == 0x7FFFFFFF);
+  CHECK(uint63_t{0x7FFFFFFFFFFFFFFF}.to_unsigned() == 0x7FFFFFFFFFFFFFFF);
+  CHECK(uint63_t{0x7FFFFFFFFFFFFFFF}.to_signed() == 0x7FFFFFFFFFFFFFFF);
+  CHECK(uint7_t{uint7_t{1}}.to_unsigned() == 1);
+  CHECK(uint7_t{uint7_t{1}}.to_signed() == 1);
   CHECK_THROWS(uint7_t{-1});
   CHECK_THROWS(uint15_t{-1});
   CHECK_THROWS(uint31_t{-1});

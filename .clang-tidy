@@ -1,0 +1,4 @@
+Checks:           '*,-*-magic-numbers,-*-special-member-functions,-fuchsia-overloaded-operator,-cert-dcl21-cpp'
+WarningsAsErrors: '*'
+FormatStyle:     file
+HeaderFilterRegex: '.*'
