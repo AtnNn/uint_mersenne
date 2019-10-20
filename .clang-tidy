@@ -1,4 +1,4 @@
-Checks:           '*,-*-magic-numbers,-*-special-member-functions,-fuchsia-overloaded-operator,-cert-dcl21-cpp'
+Checks:           '*,-*-magic-numbers,-*-special-member-functions,-fuchsia-overloaded-operator,-cert-dcl21-cpp,-llvm-header-guard'
 WarningsAsErrors: '*'
 FormatStyle:     file
-HeaderFilterRegex: '.*'
+HeaderFilterRegex: 'uint_mersenne.h'
